@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: onetyone-postgres
+    environment:
+      POSTGRES_DB: onetyone_db
+      POSTGRES_USER: onetyone_user
+      POSTGRES_PASSWORD: onetyone_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: onetyone-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/oentyone_db
+      SPRING_DATASOURCE_USERNAME: onetyone_user
+      SPRING_DATASOURCE_PASSWORD: onetyone_pass
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
