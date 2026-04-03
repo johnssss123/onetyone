@@ -19,7 +19,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/oentyone_db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/onetyone_db
       SPRING_DATASOURCE_USERNAME: onetyone_user
       SPRING_DATASOURCE_PASSWORD: onetyone_pass
     depends_on:

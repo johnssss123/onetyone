@@ -11,7 +11,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update        # auto-creates/updates tables from your entities
-    show-sql: true            # logs every SQL query — great for learning
+    show-sql: true            # logs every SQL query in console
     properties:
       hibernate:
         format_sql: true      # makes the logged SQL readable
