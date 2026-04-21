@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
+import com.onetyone.exception.ResourceNotFoundException;
 
 @Service
 @RequiredArgsConstructor
@@ -41,13 +42,13 @@ public class PostService {
 
     public PostResponse getPostById(Long id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Post not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
         return mapToResponse(post);
     }
 
     public PostResponse updatePost(Long id, PostRequest request, String email) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Post not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
 
         if (!post.getUser().getEmail().equals(email)) {
             throw new RuntimeException("You can only edit your own posts");
@@ -61,7 +62,7 @@ public class PostService {
 
     public void deletePost(Long id, String email) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Post not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
 
         if (!post.getUser().getEmail().equals(email)) {
             throw new RuntimeException("You can only delete your own posts");
